@@ -156,7 +156,9 @@
                         <h3 class="text-lg font-semibold text-gray-900">Historique des Performances</h3>
                         <i data-lucide="trending-up" class="h-5 w-5 text-gray-400"></i>
                     </div>
-                    <canvas id="performanceHistoryChart" width="400" height="300"></canvas>
+                    <div style="height: 200px;">
+                        <canvas id="performanceHistoryChart"></canvas>
+                    </div>
                 </div>
 
                 <!-- Volunteer Performance Distribution -->
@@ -165,7 +167,9 @@
                         <h3 class="text-lg font-semibold text-gray-900">Distribution des Performances</h3>
                         <i data-lucide="bar-chart" class="h-5 w-5 text-gray-400"></i>
                     </div>
-                    <canvas id="performanceDistributionChart" width="400" height="300"></canvas>
+                    <div style="height: 200px;">
+                        <canvas id="performanceDistributionChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,7 +290,8 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
+                    aspectRatio: 2,
                     scales: {
                         y: {
                             type: 'linear',
@@ -294,8 +299,10 @@
                             position: 'left',
                             title: {
                                 display: true,
-                                text: 'Volontaires'
-                            }
+                                text: 'Volontaires',
+                                font: { size: 10 }
+                            },
+                            ticks: { font: { size: 9 } }
                         },
                         y1: {
                             type: 'linear',
@@ -303,11 +310,21 @@
                             position: 'right',
                             title: {
                                 display: true,
-                                text: 'Tâches'
+                                text: 'Tâches',
+                                font: { size: 10 }
                             },
                             grid: {
                                 drawOnChartArea: false,
                             },
+                            ticks: { font: { size: 9 } }
+                        },
+                        x: {
+                            ticks: { font: { size: 9 } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { font: { size: 10 } }
                         }
                     }
                 }
@@ -333,10 +350,20 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
+                    aspectRatio: 2,
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            ticks: { font: { size: 9 } }
+                        },
+                        x: {
+                            ticks: { font: { size: 9 } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { font: { size: 10 } }
                         }
                     }
                 }
@@ -555,4 +582,3 @@
     </script>
 </body>
 </html>
-
