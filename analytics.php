@@ -37,6 +37,7 @@
                     <a href="dashboard.php" class="text-gray-700 hover:text-primary transition-colors">Tableau de bord</a>
                     <a href="volunteers.php" class="text-gray-700 hover:text-primary transition-colors">Volontaires</a>
                     <a href="analytics.php" class="text-primary font-semibold">Analyses</a>
+                    <a href="downloads.php" class="text-gray-700 hover:text-primary transition-colors">Téléchargements</a>
                     <a href="about.php" class="text-gray-700 hover:text-primary transition-colors">À propos</a>
                 </div>
             </div>

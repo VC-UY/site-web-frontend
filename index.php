@@ -59,7 +59,9 @@
                     <a href="dashboard.php" class="text-gray-700 hover:text-primary transition-colors">Tableau de bord</a>
                     <a href="volunteers.php" class="text-gray-700 hover:text-primary transition-colors">Volontaires</a>
                     <a href="analytics.php" class="text-gray-700 hover:text-primary transition-colors">Analyses</a>
+                    <a href="downloads.php" class="text-gray-700 hover:text-primary transition-colors">Telechargements</a>
                     <a href="about.php" class="text-gray-700 hover:text-primary transition-colors">À propos</a>
+                    
                 </div>
                 <div class="md:hidden flex items-center">
                     <button class="mobile-menu-button">
@@ -356,6 +358,8 @@
             });
         }
     </script>
+
+
 </body>
 </html>
 
