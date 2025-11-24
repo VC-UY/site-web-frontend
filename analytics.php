@@ -20,10 +20,25 @@
             }
         }
     </script>
+    <style>
+        /* AJOUT DES STYLES POUR LE HEADER HERO DÉGRADÉ */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .stats-gradient {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -36,40 +51,73 @@
                     <a href="index.php" class="text-gray-700 hover:text-primary transition-colors">Accueil</a>
                     <a href="dashboard.php" class="text-gray-700 hover:text-primary transition-colors">Tableau de bord</a>
                     <a href="volunteers.php" class="text-gray-700 hover:text-primary transition-colors">Volontaires</a>
-                    <a href="analytics.php" class="text-primary font-semibold">Analyses</a>
+                    <a href="analytics.php" class="text-primary font-semibold border-b-2 border-primary transition-colors">Analyses</a>
                     <a href="downloads.php" class="text-gray-700 hover:text-primary transition-colors">Téléchargements</a>
+                    <a href="badges.php" class="text-gray-700 hover:text-primary transition-colors">Badges</a>
                     <a href="about.php" class="text-gray-700 hover:text-primary transition-colors">À propos</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Header -->
-    <div class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
+    <section class="gradient-bg pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex items-center justify-between text-white">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Analyses et Métriques</h1>
-                    <p class="mt-2 text-gray-600">Analysez les performances et les économies de votre système de calcul distribué</p>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">Analyses et Métriques</h1>
+                    <p class="text-xl text-gray-200">Analysez les performances et les économies de votre système de calcul distribué</p>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <select id="time-range" class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <select id="time-range" class="border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:ring-2 focus:ring-white focus:border-transparent">
                         <option value="1">Dernières 24h</option>
                         <option value="7" selected>7 derniers jours</option>
                         <option value="30">30 derniers jours</option>
                     </select>
-                    <button onclick="refreshData()" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        <i data-lucide="refresh-cw" class="h-4 w-4 mr-2 inline"></i>
+                    <button onclick="refreshData()" class="bg-white text-primary px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center shadow-lg">
+                        <i data-lucide="refresh-cw" class="h-4 w-4 mr-2"></i>
                         Actualiser
                     </button>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Main Content -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="users" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="header-volunteers-count">--</div>
+                    <div class="text-gray-600">Volontaires Actifs</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="zap" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="header-tasks-count">--</div>
+                    <div class="text-gray-600">Tâches Traitées</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="dollar-sign" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="header-savings-count">FCFA --</div>
+                    <div class="text-gray-600">Économies Réalisées</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="activity" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="header-performance-count">--%</div>
+                    <div class="text-gray-600">Utilisation CPU</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <!-- Cost Savings Section -->
         <div class="mb-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Économies de Coûts</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -80,7 +128,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Économies Totales</p>
-                            <p class="text-2xl font-bold text-gray-900" id="total-savings">€--</p>
+                            <p class="text-2xl font-bold text-gray-900" id="total-savings">FCFA --</p>
                         </div>
                     </div>
                     <div class="mt-4">
@@ -98,12 +146,12 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Coût par Tâche</p>
-                            <p class="text-2xl font-bold text-gray-900" id="cost-per-task">€--</p>
+                            <p class="text-2xl font-bold text-gray-900" id="cost-per-task">FCFA --</p>
                         </div>
                     </div>
                     <div class="mt-4">
                         <div class="flex items-center text-sm">
-                            <span class="text-blue-600 font-medium">vs €0.50</span>
+                            <span class="text-blue-600 font-medium">vs FCFA 300</span>
                             <span class="text-gray-500 ml-2">traditionnel</span>
                         </div>
                     </div>
@@ -147,11 +195,9 @@
             </div>
         </div>
 
-        <!-- Performance Analytics -->
         <div class="mb-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Analyses de Performance</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Performance History Chart -->
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-semibold text-gray-900">Historique des Performances</h3>
@@ -162,7 +208,6 @@
                     </div>
                 </div>
 
-                <!-- Volunteer Performance Distribution -->
                 <div class="bg-white rounded-lg shadow p-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-semibold text-gray-900">Distribution des Performances</h3>
@@ -175,7 +220,6 @@
             </div>
         </div>
 
-        <!-- Cost Comparison -->
         <div class="mb-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Comparaison des Coûts</h2>
             <div class="bg-white rounded-lg shadow p-6">
@@ -183,34 +227,28 @@
             </div>
         </div>
 
-        <!-- Top Performers -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Top Volunteers -->
             <div class="bg-white rounded-lg shadow">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h3 class="text-lg font-semibold text-gray-900">Top Volontaires</h3>
                 </div>
                 <div class="p-6">
                     <div id="top-volunteers" class="space-y-4">
-                        <!-- Top volunteers will be loaded here -->
-                    </div>
+                        </div>
                 </div>
             </div>
 
-            <!-- Performance Statistics -->
             <div class="bg-white rounded-lg shadow">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h3 class="text-lg font-semibold text-gray-900">Statistiques Globales</h3>
                 </div>
                 <div class="p-6">
                     <div id="global-stats" class="space-y-4">
-                        <!-- Global statistics will be loaded here -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
 
-        <!-- Resource Utilization -->
         <div class="mb-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Utilisation des Ressources</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -377,7 +415,8 @@
                 data: {
                     labels: ['Infrastructure Traditionnelle', 'VCUY1 (Volontaires)', 'Économies Réalisées'],
                     datasets: [{
-                        label: 'Coût (€)',
+                        // Libellé mis à jour pour FCFA
+                        label: 'Coût (FCFA)',
                         data: [0, 0, 0],
                         backgroundColor: [
                             'rgba(239, 68, 68, 0.8)',
@@ -393,8 +432,9 @@
                         y: {
                             beginAtZero: true,
                             ticks: {
+                                // Devise mise à jour
                                 callback: function(value) {
-                                    return '€' + value.toLocaleString();
+                                    return 'FCFA ' + value.toLocaleString();
                                 }
                             }
                         }
@@ -403,7 +443,8 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': €' + context.parsed.y.toLocaleString();
+                                    // Devise mise à jour
+                                    return context.dataset.label + ': FCFA ' + context.parsed.y.toLocaleString();
                                 }
                             }
                         }
@@ -421,9 +462,11 @@
                 if (data.success) {
                     const savings = data.data;
                     
-                    document.getElementById('total-savings').textContent = '€' + Math.round(savings.total_savings).toLocaleString();
+                    // Devise mise à jour
+                    document.getElementById('total-savings').textContent = 'FCFA ' + Math.round(savings.total_savings).toLocaleString();
                     document.getElementById('savings-percentage').textContent = Math.round(savings.savings_percentage) + '%';
-                    document.getElementById('cost-per-task').textContent = '€' + savings.cost_per_task_saved.toFixed(3);
+                    // Devise mise à jour
+                    document.getElementById('cost-per-task').textContent = 'FCFA ' + savings.cost_per_task_saved.toFixed(3);
                     document.getElementById('completed-tasks-count').textContent = savings.completed_tasks.toLocaleString();
                     document.getElementById('monthly-roi').textContent = Math.round(savings.savings_percentage * 2) + '%';
                     
@@ -434,6 +477,9 @@
                         savings.total_savings
                     ];
                     costComparisonChart.update();
+                    
+                    // Mise à jour des stats du header (FCFA)
+                    document.getElementById('header-savings-count').textContent = 'FCFA ' + Math.round(savings.total_savings).toLocaleString();
                 }
             } catch (error) {
                 console.error('Erreur lors du chargement des économies:', error);
@@ -449,7 +495,7 @@
                 if (data.success) {
                     const analytics = data.data;
                     
-                    // Update top volunteers
+                    // Update top volunteers (unchanged)
                     const topVolunteersContainer = document.getElementById('top-volunteers');
                     topVolunteersContainer.innerHTML = analytics.top_volunteers.map((volunteer, index) => `
                         <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -469,7 +515,7 @@
                         </div>
                     `).join('');
                     
-                    // Update global statistics
+                    // Update global statistics (unchanged)
                     const globalStatsContainer = document.getElementById('global-stats');
                     const stats = analytics.statistics;
                     globalStatsContainer.innerHTML = `
@@ -495,7 +541,7 @@
                         </div>
                     `;
                     
-                    // Update performance distribution chart
+                    // Update performance distribution chart (unchanged)
                     const volunteers = analytics.top_volunteers.concat(
                         Array(Math.max(0, 20 - analytics.top_volunteers.length)).fill(null).map(() => ({
                             performance_score: Math.random() * 100
@@ -516,6 +562,11 @@
                     
                     performanceDistributionChart.data.datasets[0].data = distribution;
                     performanceDistributionChart.update();
+                    
+                    // Mise à jour des stats du header (non-FCFA)
+                    document.getElementById('header-volunteers-count').textContent = stats.active_volunteers.toLocaleString();
+                    document.getElementById('header-tasks-count').textContent = stats.completed_tasks.toLocaleString();
+                    document.getElementById('header-performance-count').textContent = Math.round(stats.average_performance_score) + '%';
                 }
             } catch (error) {
                 console.error('Erreur lors du chargement des analyses de performance:', error);
@@ -547,7 +598,7 @@
                     performanceHistoryChart.data.datasets[1].data = completedTasks;
                     performanceHistoryChart.update();
                     
-                    // Update resource utilization
+                    // Update resource utilization (unchanged)
                     const latestMetrics = history[history.length - 1];
                     document.getElementById('global-cpu').textContent = Math.round(latestMetrics.cpu_usage) + '%';
                     document.getElementById('global-cpu-bar').style.width = latestMetrics.cpu_usage + '%';
@@ -581,5 +632,51 @@
             setInterval(refreshData, 60000);
         });
     </script>
+
+                    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="cpu" class="h-8 w-8 text-primary mr-2"></i>
+                        <span class="text-xl font-bold">VCUY1</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Système de calcul distribué volontaire développé à l'Université de Yaoundé I.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#accueil" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
+                        <li><a href="dashboard.php" class="text-gray-400 hover:text-white transition-colors">Tableau de bord</a></li>
+                        <li><a href="volunteers.php" class="text-gray-400 hover:text-white transition-colors">Volontaires</a></li>
+                        <li><a href="analytics.php" class="text-gray-400 hover:text-white transition-colors">Analyses</a></li>
+                        <li><a href="downloads.php" class="text-gray-400 hover:text-white transition-colors">Téléchargements</a></li>
+                        <li><a href="badges.php" class="text-gray-400 hover:text-white transition-colors">Badges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
+                        <li><a href="about.php" class="text-gray-400 hover:text-white transition-colors">À propos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <p class="text-gray-400 mb-2">Université de Yaoundé I</p>
+                    <p class="text-gray-400 mb-2">Cameroun</p>
+                    <p class="text-gray-400">contact@vcuy1.org</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">© 2025 VCUY1. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

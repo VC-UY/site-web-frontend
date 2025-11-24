@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="assets/js/animations.js"></script>
     <script src="assets/js/realtime.js"></script>
+    <script src="assets/js/badges.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -37,9 +38,19 @@
         }
     </style>
 </head>
+<script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        
+        // Charger le widget badges
+        if (typeof loadDashboardBadgesWidget === 'function') {
+            loadDashboardBadgesWidget();
+        }
+        
+    </script>
 <body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -50,38 +61,39 @@
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.php" class="text-gray-700 hover:text-primary transition-colors">Accueil</a>
-                    <a href="dashboard.php" class="text-primary font-semibold">Tableau de bord</a>
+                    <a href="dashboard.php" class="text-primary font-semibold border-b-2 border-primary transition-colors">Tableau de bord</a>
                     <a href="volunteers.php" class="text-gray-700 hover:text-primary transition-colors">Volontaires</a>
                     <a href="analytics.php" class="text-gray-700 hover:text-primary transition-colors">Analyses</a>
                     <a href="downloads.php" class="text-gray-700 hover:text-primary transition-colors">Téléchargements</a>
+                    <a href="badges.php" class="text-gray-700 hover:text-primary transition-colors">Badges</a>
                     <a href="about.php" class="text-gray-700 hover:text-primary transition-colors">À propos</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Header -->
-    <div class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <h1 class="text-3xl font-bold text-gray-900">Tableau de Bord</h1>
-                <div class="flex items-center space-x-4">
-                    <div class="flex items-center text-sm text-gray-500">
-                        <i data-lucide="clock" class="h-4 w-4 mr-1"></i>
-                        <span id="last-update">Dernière mise à jour: --:--</span>
-                    </div>
-                    <button onclick="refreshData()" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        <i data-lucide="refresh-cw" class="h-4 w-4 mr-2 inline"></i>
+    <section class="gradient-bg pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex items-center justify-between text-white">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">Tableau de Bord du Système</h1>
+                    <p class="text-xl text-gray-200">Aperçu en temps réel des métriques et des performances du réseau.</p>
+                </div>
+                <div class="flex flex-col items-end space-y-2">
+                    <button onclick="refreshData()" class="bg-white text-primary px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center shadow-lg">
+                        <i data-lucide="refresh-cw" class="h-4 w-4 mr-2"></i>
                         Actualiser
                     </button>
+                    <div class="text-sm text-gray-200">
+                        <i data-lucide="clock" class="h-4 w-4 mr-1 inline"></i>
+                        <span id="last-update">Dernière mise à jour: --:--</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center">
@@ -155,9 +167,16 @@
             </div>
         </div>
 
-        <!-- Charts Row -->
+        <div id="badges-widget">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="animate-pulse">
+            <div class="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+            <div class="h-20 bg-gray-200 rounded mb-4"></div>
+            <div class="h-4 bg-gray-200 rounded"></div>
+        </div>
+    </div>
+</div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Performance Chart -->
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-semibold text-gray-900">Performance Système</h3>
@@ -170,7 +189,6 @@
                 <canvas id="performanceChart" width="400" height="200"></canvas>
             </div>
 
-            <!-- Tasks Distribution -->
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-semibold text-gray-900">Distribution des Tâches</h3>
@@ -180,31 +198,27 @@
             </div>
         </div>
 
-        <!-- Recent Activity -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Active Volunteers -->
             <div class="bg-white rounded-lg shadow">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h3 class="text-lg font-semibold text-gray-900">Volontaires Actifs</h3>
                 </div>
                 <div class="p-6">
                     <div id="volunteers-list" class="space-y-4">
-                        <!-- Volunteers will be loaded here -->
-                    </div>
+                        </div>
                 </div>
             </div>
 
-            <!-- Recent Tasks -->
             <div class="bg-white rounded-lg shadow">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h3 class="text-lg font-semibold text-gray-900">Tâches Récentes</h3>
                 </div>
                 <div class="p-6">
                     <div id="tasks-list" class="space-y-4">
-                        <!-- Tasks will be loaded here -->
-                    </div>
+                        </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -437,6 +451,50 @@
             setInterval(refreshData, 30000);
         });
     </script>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="cpu" class="h-8 w-8 text-primary mr-2"></i>
+                        <span class="text-xl font-bold">VCUY1</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Système de calcul distribué volontaire développé à l'Université de Yaoundé I.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#accueil" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
+                        <li><a href="dashboard.php" class="text-gray-400 hover:text-white transition-colors">Tableau de bord</a></li>
+                        <li><a href="volunteers.php" class="text-gray-400 hover:text-white transition-colors">Volontaires</a></li>
+                        <li><a href="analytics.php" class="text-gray-400 hover:text-white transition-colors">Analyses</a></li>
+                        <li><a href="downloads.php" class="text-gray-400 hover:text-white transition-colors">Téléchargements</a></li>
+                        <li><a href="badges.php" class="text-gray-400 hover:text-white transition-colors">Badges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
+                        <li><a href="about.php" class="text-gray-400 hover:text-white transition-colors">À propos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <p class="text-gray-400 mb-2">Université de Yaoundé I</p>
+                    <p class="text-gray-400 mb-2">Cameroun</p>
+                    <p class="text-gray-400">contact@vcuy1.org</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">© 2025 VCUY1. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
-

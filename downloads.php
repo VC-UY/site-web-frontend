@@ -20,15 +20,21 @@
         }
     </script>
     <style>
+        
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card-gradient {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
         .stats-gradient {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        /* Styles spécifiques à downloads.php */
         .download-gradient-blue {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         }
@@ -51,8 +57,7 @@
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -66,33 +71,66 @@
                     <a href="dashboard.php" class="text-gray-700 hover:text-primary transition-colors">Tableau de bord</a>
                     <a href="volunteers.php" class="text-gray-700 hover:text-primary transition-colors">Volontaires</a>
                     <a href="analytics.php" class="text-gray-700 hover:text-primary transition-colors">Analyses</a>
-                    <a href="downloads.php" class="text-primary font-semibold">Téléchargements</a>
+                    <a href="downloads.php" class="text-primary font-semibold border-b-2 border-primary transition-colors">Téléchargements</a>
+                    <a href="badges.php" class="text-gray-700 hover:text-primary transition-colors">Badges</a>
                     <a href="about.php" class="text-gray-700 hover:text-primary transition-colors">À propos</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Header -->
-    <div class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
+    <section class="gradient-bg pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex items-center justify-between text-white">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Téléchargements</h1>
-                    <p class="mt-2 text-gray-600">Choisissez l'application adaptée à votre rôle dans le système</p>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">Téléchargements</h1>
+                    <p class="text-xl text-gray-200">Choisissez l'application adaptée à votre rôle dans le système</p>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <div class="bg-primary/10 px-4 py-2 rounded-lg">
-                        <span class="text-sm font-semibold text-primary">3 Applications Disponibles</span>
+                    <div class="bg-white text-primary px-4 py-2 rounded-lg font-semibold shadow-lg">
+                        <span class="text-sm">3 Applications Disponibles</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Main Content -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="users" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="volunteers-count" data-counter="127">127</div>
+                    <div class="text-gray-600">Volontaires Actifs</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="zap" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="tasks-count" data-counter="3387">3,387</div>
+                    <div class="text-gray-600">Tâches Traitées</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="dollar-sign" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="savings-count">3000 F</div> 
+                    <div class="text-gray-600">Économies Réalisées</div>
+                </div>
+                <div class="text-center">
+                    <div class="stats-gradient rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-float">
+                        <i data-lucide="activity" class="h-8 w-8 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2" id="performance-count">67%</div>
+                    <div class="text-gray-600">Utilisation CPU</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <!-- System Requirements Alert -->
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8 rounded-r-lg">
             <div class="flex">
                 <div class="flex-shrink-0">
@@ -122,9 +160,7 @@
             </div>
         </div>
 
-        <!-- Applications Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <!-- Volunteer App -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift">
                 <div class="download-gradient-blue p-6 text-white">
                     <div class="flex items-center justify-center mb-4">
@@ -137,8 +173,6 @@
                 </div>
                 
                 <div class="p-6">
-                    
-                    
                     <div class="space-y-3">
                         <a href="https://github.com/VC-UY/volunteer-app-2025" 
                            target="_blank"
@@ -146,21 +180,10 @@
                             <i data-lucide="github" class="h-5 w-5 mr-2"></i>
                             Voir sur GitHub
                         </a>
-                        
-                        <a href="/api/downloads/volunteer" 
-                           class="flex items-center justify-center w-full bg-primary text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
-                            <i data-lucide="download" class="h-5 w-5 mr-2"></i>
-                            Télécharger (Linux)
-                        </a>
-                        
-                        
                     </div>
-                    
-                    
                 </div>
             </div>
 
-            <!-- Manager App -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift">
                 <div class="download-gradient-purple p-6 text-white">
                     <div class="flex items-center justify-center mb-4">
@@ -173,8 +196,6 @@
                 </div>
                 
                 <div class="p-6">
-                    
-                    
                     <div class="space-y-3">
                         <a href="https://github.com/VC-UY/manager-app-2025" 
                            target="_blank"
@@ -182,21 +203,10 @@
                             <i data-lucide="github" class="h-5 w-5 mr-2"></i>
                             Voir sur GitHub
                         </a>
-                        
-                        <a href="/api/downloads/manager" 
-                           class="flex items-center justify-center w-full bg-purple-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-all shadow-md hover:shadow-lg">
-                            <i data-lucide="download" class="h-5 w-5 mr-2"></i>
-                            Télécharger (Linux)
-                        </a>
-                        
-                       
                     </div>
-                    
-                   
                 </div>
             </div>
 
-            <!-- Coordinator App -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift">
                 <div class="download-gradient-green p-6 text-white">
                     <div class="flex items-center justify-center mb-4">
@@ -209,9 +219,6 @@
                 </div>
                 
                 <div class="p-6">
-                    <div class="mb-6">
-                        
-                    
                     <div class="space-y-3">
                         <a href="https://github.com/VC-UY/coordinator-app-2025" 
                            target="_blank"
@@ -219,30 +226,13 @@
                             <i data-lucide="github" class="h-5 w-5 mr-2"></i>
                             Voir sur GitHub
                         </a>
-                        
-                        <a href="/api/downloads/coordinator" 
-                           class="flex items-center justify-center w-full bg-green-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-green-700 transition-all shadow-md hover:shadow-lg">
-                            <i data-lucide="download" class="h-5 w-5 mr-2"></i>
-                            Télécharger (Linux)
-                        </a>
-                        
-                       
                     </div>
-                    
-                   
                 </div>
             </div>
         </div>
-
-        
-        
-
-        
-        
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-gray-900 text-white py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
@@ -250,17 +240,18 @@
                         <i data-lucide="cpu" class="h-8 w-8 text-primary mr-2"></i>
                         <span class="text-xl font-bold">VCUY1</span>
                     </div>
-                    <p class="text-gray-400">
+                    <p class="text-gray-400 text-sm">
                         Système de calcul distribué volontaire développé à l'Université de Yaoundé I.
                     </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Navigation</h3>
                     <ul class="space-y-2">
-                        <li><a href="#accueil" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
+                        <li><a href="index.php" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
                         <li><a href="dashboard.php" class="text-gray-400 hover:text-white transition-colors">Tableau de bord</a></li>
                         <li><a href="volunteers.php" class="text-gray-400 hover:text-white transition-colors">Volontaires</a></li>
-                        <li><a href="analytics.php" class="text-gray-400 hover:text-white transition-colors">Analyses</a></li>
+                        <li><a href="downloads.php" class="text-gray-400 hover:text-white transition-colors">Téléchargements</a></li>
+                        <li><a href="badges.php" class="text-gray-400 hover:text-white transition-colors">Badges</a></li>
                     </ul>
                 </div>
                 <div>
@@ -285,9 +276,39 @@
         </div>
     </footer>
 
+
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Load real-time stats (Copie de index.php)
+        async function loadStats() {
+            try {
+                const response = await fetch('http://localhost:5000/api/system-metrics');
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Les éléments du DOM ont des IDs statiques dans index.php et badges.php, nous les conservons ici.
+                    document.getElementById('volunteers-count').textContent = data.data.total_volunteers;
+                    document.getElementById('tasks-count').textContent = data.data.total_tasks.toLocaleString();
+                    document.getElementById('savings-count').textContent = '€' + Math.round(data.data.cost_savings).toLocaleString();
+                    document.getElementById('performance-count').textContent = Math.round(data.data.cpu_usage) + '%';
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des statistiques:', error);
+                // Afficher les valeurs statiques si l'API échoue
+                document.getElementById('volunteers-count').textContent = "127";
+                document.getElementById('tasks-count').textContent = "3,387";
+                document.getElementById('savings-count').textContent = "€33,134";
+                document.getElementById('performance-count').textContent = "67%";
+            }
+        }
+        
+        // Load stats on page load
+        loadStats();
+        
+        // Refresh stats every 30 seconds
+        setInterval(loadStats, 30000);
     </script>
 </body>
 </html>

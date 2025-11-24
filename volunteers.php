@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volontaires - VCUY1</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script> 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script>
         tailwind.config = {
@@ -20,6 +20,7 @@
         }
     </script>
     <style>
+        /* Styles pour le Hero et les volontaires */
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
@@ -29,8 +30,7 @@
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -42,40 +42,38 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.php" class="text-gray-700 hover:text-primary transition-colors">Accueil</a>
                     <a href="dashboard.php" class="text-gray-700 hover:text-primary transition-colors">Tableau de bord</a>
-                    <a href="volunteers.php" class="text-primary font-semibold">Volontaires</a>
+                    <a href="volunteers.php" class="text-primary font-semibold border-b-2 border-primary transition-colors">Volontaires</a>
                     <a href="analytics.php" class="text-gray-700 hover:text-primary transition-colors">Analyses</a>
                     <a href="downloads.php" class="text-gray-700 hover:text-primary transition-colors">Téléchargements</a>
+                    <a href="badges.php" class="text-gray-700 hover:text-primary transition-colors">Badges</a>
                     <a href="about.php" class="text-gray-700 hover:text-primary transition-colors">À propos</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Header -->
-    <div class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
+    <section class="gradient-bg pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex items-center justify-between text-white">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Réseau de Volontaires</h1>
-                    <p class="mt-2 text-gray-600">Gérez et surveillez les performances de votre réseau de calcul distribué</p>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">Réseau de Volontaires</h1>
+                    <p class="text-xl text-gray-200">Gérez et surveillez les performances de votre réseau de calcul distribué</p>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="flex items-center text-sm text-gray-500">
-                        <i data-lucide="clock" class="h-4 w-4 mr-1"></i>
-                        <span id="last-update">Dernière mise à jour: --:--</span>
-                    </div>
-                    <button onclick="refreshData()" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        <i data-lucide="refresh-cw" class="h-4 w-4 mr-2 inline"></i>
+                <div class="flex flex-col items-end space-y-2">
+                    <button onclick="refreshData()" class="bg-white text-primary px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center shadow-lg">
+                        <i data-lucide="refresh-cw" class="h-4 w-4 mr-2"></i>
                         Actualiser
                     </button>
+                    <div class="text-sm text-gray-200">
+                        <i data-lucide="clock" class="h-4 w-4 mr-1 inline"></i>
+                        <span id="last-update">Dernière mise à jour: --:--</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <!-- Stats Overview -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center">
@@ -126,7 +124,6 @@
             </div>
         </div>
 
-        <!-- Filters and Search -->
         <div class="bg-white rounded-lg shadow mb-6">
             <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -155,12 +152,9 @@
             </div>
         </div>
 
-        <!-- Volunteers List/Grid -->
         <div id="volunteers-container">
-            <!-- Volunteers will be loaded here -->
-        </div>
+            </div>
 
-        <!-- Pagination -->
         <div class="flex items-center justify-between mt-8">
             <div class="text-sm text-gray-700">
                 Affichage de <span id="showing-from">1</span> à <span id="showing-to">20</span> sur <span id="total-count">0</span> volontaires
@@ -170,8 +164,7 @@
                     Précédent
                 </button>
                 <div id="page-numbers" class="flex space-x-1">
-                    <!-- Page numbers will be generated here -->
-                </div>
+                    </div>
                 <button id="next-page" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700">
                     Suivant
                 </button>
@@ -179,7 +172,6 @@
         </div>
     </div>
 
-    <!-- Volunteer Detail Modal -->
     <div id="volunteer-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-screen overflow-y-auto">
@@ -190,8 +182,7 @@
                     </button>
                 </div>
                 <div id="modal-content" class="p-6">
-                    <!-- Modal content will be loaded here -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -602,6 +593,50 @@
             setInterval(refreshData, 60000);
         });
     </script>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="cpu" class="h-8 w-8 text-primary mr-2"></i>
+                        <span class="text-xl font-bold">VCUY1</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Système de calcul distribué volontaire développé à l'Université de Yaoundé I.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#accueil" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
+                        <li><a href="dashboard.php" class="text-gray-400 hover:text-white transition-colors">Tableau de bord</a></li>
+                        <li><a href="volunteers.php" class="text-gray-400 hover:text-white transition-colors">Volontaires</a></li>
+                        <li><a href="analytics.php" class="text-gray-400 hover:text-white transition-colors">Analyses</a></li>
+                        <li><a href="downloads.php" class="text-gray-400 hover:text-white transition-colors">Téléchargements</a></li>
+                        <li><a href="badges.php" class="text-gray-400 hover:text-white transition-colors">Badges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
+                        <li><a href="about.php" class="text-gray-400 hover:text-white transition-colors">À propos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <p class="text-gray-400 mb-2">Université de Yaoundé I</p>
+                    <p class="text-gray-400 mb-2">Cameroun</p>
+                    <p class="text-gray-400">contact@vcuy1.org</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">© 2025 VCUY1. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
-

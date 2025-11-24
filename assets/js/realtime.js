@@ -481,3 +481,67 @@ document.addEventListener('DOMContentLoaded', function() {
 // Export for global use
 window.RealTimeManager = RealTimeManager;
 
+
+// Widget Badges pour le Dashboard
+
+async function loadDashboardBadgesWidget() {
+    try {
+        const [weekData, recentData] = await Promise.all([
+            badgesAPI.getVolunteerOfWeek(),
+            badgesAPI.getRecentBadges(24, 5)
+        ]);
+        
+        const widget = document.getElementById('badges-widget');
+        if (!widget) return;
+        
+        widget.innerHTML = `
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                    <i data-lucide="trophy" class="h-5 w-5 mr-2 text-yellow-500"></i>
+                    Badges de la Semaine
+                </h3>
+                
+                ${weekData.success && weekData.data.volunteer ? `
+                    <div class="mb-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="text-3xl mr-3">🌟</div>
+                            <div>
+                                <p class="text-sm text-gray-600">Volontaire de la Semaine</p>
+                                <p class="font-bold text-gray-900">${weekData.data.volunteer.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${recentData.success && recentData.data.badges.length > 0 ? `
+                    <div class="space-y-2">
+                        <p class="text-sm font-medium text-gray-700">Badges Récents:</p>
+                        ${recentData.data.badges.slice(0, 3).map(badge => `
+                            <div class="flex items-center text-sm p-2 bg-gray-50 rounded">
+                                <span class="text-xl mr-2">${badge.badge.icon || '🏆'}</span>
+                                <div class="flex-1">
+                                    <p class="font-medium text-gray-900">${badge.badge.name}</p>
+                                    <p class="text-xs text-gray-600">${badge.volunteer_id}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : '<p class="text-sm text-gray-500">Aucun badge récent</p>'}
+                
+                <a href="badges.php" class="mt-4 block text-center text-primary hover:text-blue-700 font-medium text-sm">
+                    Voir tous les badges →
+                </a>
+            </div>
+        `;
+        
+        lucide.createIcons();
+    } catch (error) {
+        console.error('Erreur widget badges:', error);
+    }
+}
+
+// Appeler au chargement du dashboard
+if (window.location.pathname.includes('dashboard.php')) {
+    document.addEventListener('DOMContentLoaded', loadDashboardBadgesWidget);
+}
+

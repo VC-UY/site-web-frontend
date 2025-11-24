@@ -60,6 +60,7 @@
                     <a href="volunteers.php" class="text-gray-700 hover:text-primary transition-colors">Volontaires</a>
                     <a href="analytics.php" class="text-gray-700 hover:text-primary transition-colors">Analyses</a>
                     <a href="downloads.php" class="text-gray-700 hover:text-primary transition-colors">Telechargements</a>
+                    <a href="badges.php" class="text-gray-700 hover:text-primary transition-colors">Badges</a>
                     <a href="about.php" class="text-gray-700 hover:text-primary transition-colors">À propos</a>
                     
                 </div>
@@ -284,6 +285,8 @@
                         <li><a href="dashboard.php" class="text-gray-400 hover:text-white transition-colors">Tableau de bord</a></li>
                         <li><a href="volunteers.php" class="text-gray-400 hover:text-white transition-colors">Volontaires</a></li>
                         <li><a href="analytics.php" class="text-gray-400 hover:text-white transition-colors">Analyses</a></li>
+                        <li><a href="downloads.php" class="text-gray-400 hover:text-white transition-colors">Téléchargements</a></li>
+                        <li><a href="badges.php" class="text-gray-400 hover:text-white transition-colors">Badges</a></li>
                     </ul>
                 </div>
                 <div>

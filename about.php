@@ -49,6 +49,7 @@
                     <a href="volunteers.php" class="text-gray-700 hover:text-primary transition-colors">Volontaires</a>
                     <a href="analytics.php" class="text-gray-700 hover:text-primary transition-colors">Analyses</a>
                     <a href="downloads.php" class="text-gray-700 hover:text-primary transition-colors">Téléchargements</a>
+                    <a href="badges.php" class="text-gray-700 hover:text-primary transition-colors">Badges</a>
                     <a href="about.php" class="text-primary font-semibold">À propos</a>
                 </div>
             </div>
